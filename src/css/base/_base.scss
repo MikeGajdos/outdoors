@@ -1,0 +1,58 @@
+*,
+*::after,
+*::before{
+    margin: 0;
+    padding: 0; 
+    box-sizing: inherit; /* inheritenace */
+}
+
+html {
+    font-size: 62.5%; /* so it is easier to calculate rem units.. dont forget that rem in realtionto root... makes it more responsive */ /* percdntage so it is more flexible */ //1rem=10px 10px/16px= 62.5%
+
+    /*@include respond-phone {
+         font-size: 50%;
+    } */
+
+   
+
+    @include respond(tab-land) { // min 1200 /* so I want 9px pixel stangdar for this width to 8px so a tad smeller right hence code below */
+        // 1rem=9px 9/16 = 56.25% -- remember 16px is browser default 
+        font-size: 56.25%;
+    }
+
+    //---------order is important--------//
+
+    
+
+    @include respond(tab-port) { // max 900
+        font-size: 50%; // 1rem = 8px 8/16= 50%
+    }
+
+    @include respond(phone) { // this not ncessary but i left it here
+        font-size: 50%;
+    }
+
+
+
+
+
+    @include respond(big-desktop) {
+        font-size: 75%;  // 1rem = 12 12/16= 75%
+    }
+}
+
+body { 
+   
+    box-sizing: border-box;
+    padding: 3rem; /* padding is not getting inherited ..just nice line aroind the site */
+
+    @include respond(tab-port) { // max 900 so <900
+        padding: 0;  /* this getting rig of line or space around site so if the screen is less than 900 ( screen max 900) then no line or space */
+    }
+}
+
+/// whenever user chooses the text or highlights it doas our settings 
+::selection {
+    background-color: $color-primary;
+    color: $color-white;
+}

@@ -1,0 +1,106 @@
+.btn {
+  /* this first cos button element doest get pseudo class link etc so this will apply for just button class on button element and by that i mean norder none */
+  &,
+    /* ---pseudo classes are the states of  selector /the element ----*/
+&:link,  /* thats why there are together so both sttes link and visited are the same so we defy defualt browser settings */
+&:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.5rem 4rem;
+    display: inline-block; /* always do that for the inline elements so we can give them some parameters line padding height and other shit */
+    border-radius: 10rem; /* rounded corners */
+    transition: all 0.2s; /* it has to be on the initial state */
+    position: relative;
+    font-size: $default-font-size;
+
+    // changes vor btn with for <button> element cos it comes with border
+    border: none;
+    cursor: pointer;
+  }
+
+  &:hover {
+    /* fisrt we want the element to move up, in css we move from top to the bottom  y axis moves from the top to the bottom so when we want to move up we need negative value */
+    transform: translateY(-3px);
+    box-shadow: 0 1rem 2rem rgba($color-black, 0.2);
+
+    &::after {
+      /* so this is weird on hover state we want after to do this */
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0; /* trick fo fadein out to set it to zeo*/
+    }
+  }
+
+  /* when we click state is active hence active pseudo class ---*/
+  &:active,
+  &:focus {
+    outline: none;
+    transform: translateY(-1px); /* translate cos we are moving it --*/
+    /* -1px in relation to link state not the hove state*/
+    box-shadow: 0 1.6rem 3rem rgba($color-black, 0.2);
+  }
+
+  &--white {
+    background-color: $color-white;
+    color: $color-grey-dark;
+    &::after {
+      background-color: $color-white;
+    }
+  }
+
+  &--green {
+    background-color: $color-primary;
+    color: $color-white;
+    &::after {
+      background-color: $color-primary;
+    }
+  }
+
+  /* after pseudo element adds like'virtual' element after the e we selected we can style it ---*/
+
+  &::after {
+    /* trick it is put it behing thats why we are doing this this way */
+    content: ""; /* ---- WE HAVE TO SPECIFY OTHERWISE IT WONT WORK*/
+    display: inline-block;
+    height: 100%;
+    width: 100%; /* after pseudo is treating as child so 100% of the parent which is the button*/
+    border-radius: 100px;
+    position: absolute; /* we need to specify relative position and it has to be button cos atm it is body*/
+    top: 0; /* always relative to first postion of relative cos we set this to absolute*/
+    left: 0;
+    z-index: -1; /* so it is hidden*/
+
+    transition: all 0.4s; /* this is original state */
+  }
+
+  &--animated {
+    animation: moveInBottom 0.5s ease-out 0.75s;
+    animation-fill-mode: backwards; /* it will apply 0% state before animation starts */
+  }
+}
+
+.btn-text {
+  &:link,
+  &:visited {
+    font-size: $default-font-size;
+    color: $color-primary;
+    display: inline-block; /* you know why so we can set measurements*/
+    text-decoration: none; /* to get rid of underlining */
+    border-bottom: 1px solid $color-primary; /* so set the margin between text and the line cos it is a border remember box model*/
+    padding: 3px;
+    transition: all 0.2s;
+  }
+
+  &:hover {
+    background-color: $color-primary;
+    color: $color-white;
+    box-shadow: 0 1rem 2rem rgba($color-black, 0.15);
+    transform: translateY(
+      -2px
+    ); /* so it goes up as you know directionof y axis */
+  }
+
+  &:active {
+    box-shadow: 0 0.5rem 1rem rgba($color-black, 0.15);
+    transform: translateY(0px); /* back to the original postion */
+  }
+}

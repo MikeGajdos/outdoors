@@ -1,0 +1,157 @@
+.popup {
+
+    height: 100vh;
+    width: 100%;
+    position: fixed; /* always gonna be over everything in case for this landing page */
+    top: 0;
+    left: 0;
+    background-color: rgba($color-black, .8);
+    z-index: 9999;
+
+
+    opacity: 0;
+    visibility: hidden;  /* if it is just opacity it is still there but with visibilty hidden is gone */
+
+    transition: all .3s;
+
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+
+    
+    /* if conditions are supported run that code */
+    @supports (-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px)) {
+
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        background-color: rgba($color-black, .3);
+
+    }
+
+
+    &__content {
+
+        @include absCenter;
+
+        width: 75%;
+
+        
+        
+        background-color: $color-white;
+        box-shadow: 0 2rem 4rem rgba($color-black, .2);
+        border-radius: 3px;
+
+        display: table;
+
+        overflow: hidden;
+
+
+        opacity: 0;
+
+        transform:  translate(-50%, -50%) scale(.5);
+        /* so because we have already one transform from the mixin and we cant have 2 second will override the first so we have to put it there again */
+
+        transition: all .4s .2s; /* that the delay specification sothe backroud color from pop up comes in first right? */
+
+    }
+
+    &__left {
+
+        width: 33.333333%;
+
+        height: auto;
+
+        display: table-cell; /* kinda simulatiting that 2 elements  have a same height like cell in excel table ..still not sure why but hey ho */
+
+        @include  respond(tab-land){
+
+            display: table-row;
+            
+        }
+
+        
+
+
+    }
+
+    &__right {
+
+        width: 66.6666666%;
+
+        display: table-cell;
+
+        vertical-align: middle;
+
+        padding: 2rem 2rem;
+
+    }
+
+    &__img {
+
+        display: block; /* dont forget image is imline element so we need it in case braek basically act like block element */
+        width: 100%; /* that the width of the parent element */
+
+
+
+        @include  respond(tab-land){
+
+            float: left;
+            width: 50%;
+            height: 25vh;
+            
+        }
+
+        @include respond(phone){
+
+            width: 100%;
+
+            &:last-child {
+                display: none;
+            }
+            
+        }
+    }
+
+    &__text {
+            font-size: 1.2rem;
+            margin-bottom: 1rem; /* spacing between the button and the text */
+            // needs prefixes
+            column-count: 2;
+            column-gap: 4rem ;
+            column-rule: 1px solid $color-grey-light-2;
+
+
+            // needs prefixes
+            hyphens: auto;
+    }
+
+    &:target {                  /* pseudo class target remember it toes to anchor and ids */
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* animanation will happen when pop up is open and then we want to animate a child which is content */
+    &:target &__content {
+
+        opacity: 1;
+
+        transform:  translate(-50%, -50%) scale(1);
+
+    }
+
+    &__close {
+        &:link,
+        &:visited {
+            color: $color-grey-dark;
+            position: absolute;
+            top: 2.5rem;
+            right: 2.5rem;
+            font-size: 3rem;
+            text-decoration: none;
+            display: inline-block;
+            line-height: 1rem;
+        }
+        &:hover {
+            color: $color-primary;
+        }
+    }
+}

@@ -1,0 +1,50 @@
+
+.feature-box  {
+
+    background-color: rgba($color-white, .8);
+    font-size: 1.5rem;
+    padding: 2.5rem;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
+    transition: transform .3s;
+
+
+        
+    @include respond(tab-port){
+
+        padding: 2rem;
+
+    }
+
+
+
+    &__icon {
+
+        font-size: 6rem; /* it is like text icons something to remember */
+        margin-top: .5rem;
+        display: inline-block; /* icon is like text is a block element so it occcupies the whole width of the parent element but if we set it to inline block it will only occupy its own avalaible content witdth */
+        background-image: linear-gradient(to right,$color-primary-light,$color-primary-dark); /* to make it nice and gradient so ligt to dark from left to right */
+        -webkit-background-clip: text; /* a new property it will clipp the backroung to what we specify and then below we need this text to be set to transparent for it to be visible */
+        color: transparent;
+
+
+        @include respond(tab-port){
+
+            margin-bottom: 0rem;
+    
+        }
+    
+        
+
+    }
+
+    &:hover {
+        transform: translateY(-1.5rem) scale(1.03);
+        /* to make it go up and a little bigger y axis rule remember? */
+
+    }
+
+
+    
+}

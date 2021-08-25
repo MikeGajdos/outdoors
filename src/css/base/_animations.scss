@@ -1,0 +1,58 @@
+@keyframes moveInLeft {
+  /* create an animation give it a name */
+  0% {
+    /* we can specify ehat happens in each moment */
+    opacity: 0;
+    transform: translateX(-10rem); /* - is for left + right side*/
+    /* transform: rotate(0deg);*/
+  }
+
+  /*60% {
+        transform: rotate(180deg);
+    }
+    */
+
+  80% {
+    transform: translateX(1rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+@keyframes moveInRight {
+  /* create an animation give it a name */
+  0% {
+    /* we can specify ehat happens in each moment */
+    opacity: 0;
+    transform: translateX(10rem); /* - is for left + right side*/
+  }
+
+  80% {
+    transform: translateX(
+      -1rem
+    ); /* only works on block elements not on inline elemets */
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+@keyframes moveInBottom {
+  /* create an animation give it a name */
+  0% {
+    /* we can specify ehat happens in each moment */ /*---- this the position we specify at the beginning ..for it to move up on y axis it needs to be lower and to lower is + value cos y axis is from top to the bottom */
+    /*--- remember this the position at the beginning of the animation-----*/
+    opacity: 0;
+    transform: translateY(3rem); /* - is for up + right down*/
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}

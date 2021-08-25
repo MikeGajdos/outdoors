@@ -1,0 +1,83 @@
+.composition {
+    position: relative; /* of course parent element set to relative cos we are trying to position pics( child elemenets as absolute so we can the offset and position them left etc */
+
+    &__photo {
+        width: 55%; /* pics so it is responsive */
+        box-shadow: 0 1.5rem 4rem rgba($color-black,.4);
+        border-radius: 2px;
+        position: absolute;
+        z-index: 10; /* intitial z index so we can implement hover effect with each pic hovered to come on top */
+        transition: all .2s;
+        outline-offset: 2rem; /* you need to offset so it can be a gap */
+
+
+
+        @include respond(tab-port){
+            float: left;  /* major changes look at chenging postioning cos beofre it was absolute they need to be side by side etc*/
+            position: relative;
+            width: 33.3333%;
+            box-shadow: 0 1.5rem 3rem rgba($color-black,.2);
+    
+        }
+
+
+
+
+
+
+
+        &--p1 {
+            left: 0;
+            top: -2rem; /* it is a tad higher than the text of the hedings*/
+
+            @include respond(tab-port){
+                top: 0;
+                transform: scale(1.2);
+            }
+
+
+            
+        }
+
+        &--p2 {
+            right: 0;
+            top: 2rem;
+
+            @include respond(tab-port){
+                top: -1rem;
+                transform: scale(1.3);
+                z-index: 100;
+            }
+        }
+
+        &--p3 {
+            left: 20%;
+            top: 10rem;  /* thats the  lady walking just look at the numbers*/
+
+            @include respond(tab-port){
+                top: 1rem;
+                left: 0;
+                transform: scale(1.1);
+            }
+
+        }
+        /* each pic has 2 classes hence this selected like that below keep remind yourself how nesting works */
+        &:hover {
+            outline: 1.5rem solid $color-primary; /* it is pretty much like a border however we can set offsetyou can do this with border or can you?*/
+            transform: scale(1.05) translateY(-.5rem);
+            box-shadow: 0 2.5rem 4rem rgba($color-black,.5);
+            z-index: 20;
+
+
+        }
+
+    }
+
+    /* so when we hover on any pic which is child of composition class element when we hover then select which is not hovered and scale it down */
+    &:hover &__photo:not(:hover){
+
+        transform: scale(.95);
+
+    }
+
+}

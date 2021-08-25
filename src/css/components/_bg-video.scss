@@ -1,0 +1,22 @@
+.bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%; /* height and width of the parent exacttly */
+    z-index: -1;
+    opacity: .15;
+    overflow: hidden;
+
+    &__content {
+
+        height: 100%;
+        width: 100%; /* when you have just that it will respect the width but aspect ratio will come in to play so it wont cover the whole section hence the property object fit below */
+
+        object-fit: cover; /* works in a similar way as background size cover  some parts will be clipped off just a remainder
+        you can FILL but it fuck up aspect ratio
+        CONTAIN will  parent element without clipping space will be there
+        */
+    }
+
+}

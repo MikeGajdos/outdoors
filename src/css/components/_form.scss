@@ -1,0 +1,133 @@
+.form {
+
+    &__group:not(:last-child){
+
+        margin-bottom: 2rem;
+
+    }
+
+    &__input {
+        font-size: 1.5rem;
+        font-family: inherit;
+        color: inherit; /* input or form doesnt inherit stuff it is browser default stuff which is set */
+        padding: 1.5rem 2rem;
+        border-radius: 2px;
+        background-color: rgba($color-white, .5);
+        border: none;
+        border-bottom: 3px solid transparent; /* initial state  and then on focus it will get green or primary color */
+        width: 90%;
+        display: block; /* so it can go all the available witdth of the parent element and above we set to 90% so not all the way */
+
+
+        @include respond(tab-port){
+            width: 100%;  
+        }
+
+        &:focus{
+            outline: none;
+            box-shadow: 0 1rem 2rem rgba($color-black, .1);
+            border-bottom: 3px solid $color-primary;
+        }
+
+        &:focus:invalid {
+            /* invalid pseudo class so forst when in focus and then when invalid which means cos it is in html and validation is done that then do the line redish or whatever */
+
+            border-bottom: 3px solid $color-secondary-dark;
+
+        }
+
+
+        /* psuado elements with 2 : so there are actualy on a webpage ?? */
+        &::-webkit-input-placeholder {
+            color: $color-grey-dark-2; /* so when we type color changes */
+        }
+
+        transition: all .3s;
+
+
+    }
+
+    
+
+    &__label {
+
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-left: 2rem; /* so it is nicely aline with the place holder text */
+        margin-top: .7rem;
+        display: block; /* it has to be done for the stauff above to have any effect */
+
+        transition: all .3s;
+
+
+    }
+
+    &__input:placeholder-shown + &__label {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-4rem);
+
+        /* + sign adjacent sibling ~ all siblings kinda
+        couldnt do it if label was above the input
+        anyhow so id there is a placeholder so no typing yet then sigling it means label is hidden and opacity 0 !!you cant animate visibility hence opacity is there only then normal state as per usual with transition property back to normal */
+
+    }
+
+    &__radio-group {
+        width: 49%;
+        display: inline-block; /* so there are side by side and dont force the line break and some other stuff whuch comes with inline block value */
+
+        @include respond(tab-port){
+            width: 100%; /*  we are making them to go on the top of each other */
+            margin-bottom: 2rem;
+        }
+    }
+
+    &__radio-input {
+        display: none;
+    }
+
+    &__radio-label {
+        font-size: $default-font-size;
+        cursor: pointer;
+        position: relative;
+        padding-left: 4.5rem;
+    }
+
+    &__radio-button {
+
+        height: 3rem; /* to make it square for it to be transformed to circle*/
+        width: 3rem; 
+        border: 5px solid $color-primary;
+        border-radius: 50%;
+        display: inline-block; /* dumass remeber measure only in this case or inline blocks */
+        position: absolute; /* so it can any position parent when we use absolute on a child as long as it is not static */
+        left: 0;
+        top: -.4rem;
+
+
+
+
+        &::after {
+            content: "";
+            display: table;
+            height: 1.3rem;
+            width: 1.3rem;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: $color-primary;
+            opacity: 0;
+            transition: opacity .2s ;
+
+
+        }
+    }
+
+    &__radio-input:checked ~ &__radio-label &__radio-button::after{
+        opacity: 1;
+    }
+
+}

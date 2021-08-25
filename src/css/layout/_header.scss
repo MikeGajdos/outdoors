@@ -1,0 +1,89 @@
+.header {
+    height: 85vh;  /* 95 % percent of view  */
+    background-image:
+    linear-gradient(
+    to right bottom,
+     rgba($color-primary-light, 0.801),
+     rgba($color-primary-dark, 0.801)) 
+     ,url(../img/hero-small.jpg); /* 2 dots cos we need to go one folder up and then to folder and then the iamge*/
+    /* liner gradient --- direction and the color and color and we can specify opacity as well just click on to top bar and it will change from hex color to something you want */
+    background-size: cover;
+    background-position: top; /* top of the image stays the same rest if crop but it is cropped above as well  explain later */
+    
+
+    position: relative; /* needs to be to relative cos one of the child elements has absolute positioning */
+
+    // firefox test //
+    @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+
+        -webkit-clip-path: polygon(0 0,100% 0, 100% 75vh, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+        /* check clip path maker site !!!!!!!! */
+        height: 95vh;
+
+    }
+
+
+
+
+    @media  only screen and (min-resolution: 192dpi) and (min-width: 37.5em), 
+    only screen and (-webkit-min-device-pixel-ratio :2) and (min-width: 37.5em),
+    only screen and (min-width: 125em) {
+
+            background-image:
+                    linear-gradient(
+                    to right bottom,
+                    rgba($color-secondary-light, 0.801),
+                    rgba($color-secondary-dark, 0.801)) 
+                    ,url(../img/hero.jpg);
+
+    }
+
+    @include respond(phone){
+
+        -webkit-clip-path: polygon(0 0,100% 0, 100% 85vh, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+
+
+    }
+
+
+
+
+
+
+    &__logo-box {
+    position: absolute; /* putting the logo where we want to */
+    top: 4rem; /* all these positions are relative to something and thats why it needs to to specified relative position of the parent element which header */
+    left: 4rem
+    }
+
+    &__logo {
+        height: 3.5rem; /* width will be figure out by the browser */
+    }
+
+    &__text-box {
+    position: absolute;
+    top: 40%; /* starts at 50% of the parent element  then we changed t o 40 cos of the clip*/
+    left: 50%; /* same here */
+    transform: translate(-50%,-50%); 
+    /*  -----centering the stuff !!!!!!! -----*?
+    /* this in relation to element itself no longer parent elemtn
+    absulute kid
+    relative dad
+    top left
+    tranform translate remember you moron
+    */
+    text-align: center;  /* center the button with the text in it. we could use absolute nad shit like that it would be an overkill. just text in the text bex selector of that element */
+    }
+
+
+}
+
+
+
+
+
+.header__logo-box:hover .header__logo{
+    animation: moveInRight 1s ease-in;
+} 

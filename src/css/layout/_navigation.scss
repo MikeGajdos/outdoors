@@ -1,0 +1,211 @@
+.navigation {
+
+    &__checkbox {
+        display: none;
+
+
+    }
+
+    &__button {
+
+        background-color: $color-white;
+        height: 7rem;
+        width: 7rem;
+        border-radius: 50%;
+        position : fixed;
+        top: 6rem;
+        right: 6rem; /* just to be on a top of each other cos its height is 7rem to make it is covered and dont forget 6.5 rem position of background hence 1 rem diffrence */
+        z-index: 2000;
+
+        text-align: center;
+
+        cursor: pointer;
+
+        @include respond (tab-port){
+            top: 4rem;
+            right: 4rem; // positioning of nav button
+        }
+
+        @include respond (phone){
+            top: 3rem;
+            right: 3rem;
+        }
+
+    }
+
+    &__background { /* just empty div to make sure we have white circle above to cover it */
+
+        height: 6rem;
+        width: 6rem;
+        border-radius: 50%;
+        position: fixed;
+        top: 6.5rem;
+        right: 6.5rem;
+        background-image: radial-gradient($color-primary-light, $color-primary-dark);
+        z-index: 1000; /*only work on something which has position defined */
+
+        box-shadow: 0 1rem 3rem rgba($color-black, .1);
+
+        transition: transform .8s cubic-bezier(0.86, 0, 0.07, 1);
+
+
+        //transform: scale(80);
+
+        @include respond (tab-port){
+            top: 4.5rem;
+            right: 4.5rem;
+        }
+
+        @include respond (phone){
+            top: 3.5rem;
+            right: 3.5rem;
+        }
+
+
+    }
+
+    &__nav {
+
+        height: 100vh; /* so it will occupy the whole view so we will make huge it is block but still*/
+        
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1500;
+
+        margin-left: -20rem;
+        visibility: hidden;
+
+
+        opacity: 0; /* hidding it and of course the wisth as well bacues link will be kinda visible on hover courser hand thingy */
+         width: 0;
+
+        transition: opacity .8s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* we only want to animate opacity width should by instant in this case
+        thats how we use transition animation thingy*/
+
+
+    }
+
+    &__list {
+        position: absolute;
+        top: 50%;   /* we need to center all the items */
+        left: 50%;
+        transform: translate(-50%, -50%);
+        list-style: none;
+        text-align: center;
+
+        width: 100%; /* stupid thing with animation ?*/
+
+
+
+    }
+    
+
+    &__item {
+        margin: 1rem;
+
+
+    }
+
+    &__link {
+
+        &:link,
+        &:visited{
+            display: inline-block; /* dont forget link inline block so you can apply measures */
+            font-size: 3rem;
+            font-weight: 300 ;
+            padding: 1rem 2rem ;
+            color: $color-white;
+            text-decoration: none;
+            text-transform: uppercase;
+
+            background-image: linear-gradient(120deg, transparent 0%, transparent 50%, $color-white 50%);
+
+            background-size: 220%; /* white is still visible this is comment is for when we have orengered as testing so it si double hence 200  then slighty increased cos of the degress*/
+
+            transition: all .8s;
+
+            span {
+                margin-right: 1.5rem;
+                display: inline-block; /* of course remember it inline elelemtn i mean span so if we want to give it measure it needs to be inline block el */
+            }
+        }
+
+        &:hover,
+        &:active {
+
+            background-position: 100%; /* we moved in backroud size 200 and this property puts it back right? */
+
+            color: $color-primary;
+            transform: translateX(1rem);
+
+
+
+
+        }
+
+        
+    }
+
+    // Functionality //
+    /* ~ it is 'geberal sibling unlike > which is adjacent first sibling  dont forget checked means it has been clicked on and it is behind the white one remember not checked label as well cos they are connected via id */
+    &__checkbox:checked ~ &__background {
+
+        transform: scale(80);
+
+    }
+    &__checkbox:checked ~ &__nav {
+
+        opacity: 1;
+        width: 100%;
+        margin-left: 0;
+        visibility: visible;
+    }
+
+    //Icon//
+    &__icon {
+        position: relative;
+        margin-top: 3.5rem; /* to move it down so it is center after we put text aling center in a button to make horizontally centered */
+        &,
+        &::before,
+        &::after {
+
+            width: 3rem;
+            height: 2px;
+            background-color: $color-grey-dark-3;
+            display: inline-block;
+        }
+
+        &::before,
+        &::after {
+
+            content: "";
+            position: absolute;
+            left: 0;
+
+
+            transition: all .1s;
+
+
+        }
+
+        &::before { top: -.8rem;} /* to make it go up  remeber span element thingy */
+        &::after { top: .8rem;}
+    }
+
+    /*lines to cross...  make it trnaparent otherwise if we change maseure or hide it after and before psudo elements are dependent on lelemtn sizes*/
+    &__checkbox:checked + &__button &__icon {
+        background-color: transparent;
+    }
+
+    &__checkbox:checked + &__button &__icon::before {
+        top: 0;
+        transform: rotate(135deg);
+    }
+
+    &__checkbox:checked + &__button &__icon::after {
+        top: 0;
+        transform: rotate(-135deg);
+    }
+
+}

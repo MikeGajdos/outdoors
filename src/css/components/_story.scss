@@ -1,0 +1,130 @@
+.story {
+    width: 75%;
+    margin: 0 auto;
+    box-shadow: 0 3rem 6rem rgba($color-black, .1);
+    background-color: rbga($color-white, .6);
+    border-radius: 3px;
+    padding: 6rem;
+    padding-left: 9rem; /* added there due to transform but not sure if it does anything */
+
+    font-size: $default-font-size;
+
+    transform:  skewX(-12deg); /* to get the shape we want like in the previous exercises */
+
+
+    @include respond(tab-port){
+        width: 100%;
+        padding: 4rem;
+        padding-left: 7rem; 
+
+    }
+
+    @include respond (phone){
+
+        transform:  skewX(0);
+
+    }
+
+
+    &__shape {
+            width: 15rem; /* we are making the pic a square to start with */
+            height: 15rem;
+            
+            float: left;
+            -webkit-shape-outside: circle(50%  at 50% 50%);
+            shape-outside: circle(50% at 50% 50%);
+            /*  this is for stuff to float around later defined circle. First para is  circle radius ( diameter) half of 15rem .. second to center of the circled
+            element needs to floated and had to have width and height */
+
+
+            
+
+            transform: translateX(-3rem)  skewX(12deg); /* creatiing the gap between floated element allegdly better with transform property */
+
+            position: relative; /* parent element hence or because we are making the figcaption centered and usid to hover or come up */
+
+
+            overflow: hidden;
+            border-radius: 50%;
+
+
+             // firefox test //
+            @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+
+                -webkit-clip-path: circle(50%  at 50% 50%);
+                clip-path: circle(50% at 50% 50%);
+                /* this is to make capti*/
+
+                border-radius: 0;
+                    
+            
+            }
+    
+
+
+
+
+            @include respond (phone){  /* just to make is square */
+
+                transform:  translateX(-3rem) skewX(0);
+        
+            }
+
+        
+            
+    }
+
+    &__img {
+
+        height: 100%; /* filled the parent element remeber parent has to have measures defined */
+
+        transform: translateX(-4rem) scale(1.4); 
+        /* move the image so the lady appers in the middle */
+        /* scale initial state to zoomed out so when we hover we zoom down or in */
+
+        backface-visibility: hidden;
+
+        transition: all .5s;
+
+    }
+
+    &__text {
+
+        transform:  skewX(12deg); /* cant have 2 same transform propetiws so it is individual */
+
+        @include respond(phone){
+
+            transform:  translateX(-3rem) skewX(0);
+    
+        }
+
+
+    }
+    &__caption {
+        position: absolute; /* get it we need to position it absolute and rest for centering of the content */
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 20%); /* originally 50 but we want to move up so y axis is lowever */
+        color: $color-white;
+        text-transform: uppercase;
+        font-size: 1.7rem;
+        text-align: center; /* stuff above for the element to be centered this for the text inside the element to be centered */
+        opacity: 0; /* so it is hidden and this is the initial state */
+
+        transition: all .5s; /* as per usual on initial state we need to put transition  double check the other stuff just in case */
+
+        backface-visibility: hidden; /* hack to fix the glitch */
+        
+    }
+    /* hover onthe wholy story element as you can see even when we hover on a text  stauff happens*/
+    &:hover &__caption {
+        opacity: 1; /* on hover it will appear */
+        transform: translate(-50%, -50%);
+
+    }
+
+    &:hover &__img {
+        transform: translateX(-4rem) scale(1); 
+        filter: blur(3px) brightness(80%); /* value of the brightness below 100% makes it darker value about lighter */
+    }
+}

@@ -1,0 +1,226 @@
+.card {
+    // FUNCTIONALITY //
+    perspective: 150rem;  /* it has to be on parent element it is the illusion of perspective without it rotation is a bit flat  number by testing the effect*/
+    -moz-perspective: 150rem;
+    position: relative;
+    height: 52rem;
+
+
+    &__side {
+        
+        height: 52rem;
+        transition: all .8s ease;
+        position: absolute; /*it has to be on both of them when we postion some absolute it is takeout of normal flow so loooses height? that why we had to give .card smae haight so it can inherit ?*/
+        top: 0;
+        left: 0; /* to be at the same position it is strange at the beginning hard to explain there are like next to each other */
+        width: 100%; /* weird hack*/
+
+        -webkit-backface-visibility: hidden;
+
+        backface-visibility: hidden;
+
+        border-radius: 3px;
+        overflow: hidden; /* co image is overflowing so we need to do this on the parent */
+        box-shadow: 0 1.5rem 4rem rgba($color-black,0.15);
+
+
+
+        &--front{
+            background-color: $color-white;
+        }
+
+        &--back {
+            
+            transform: rotateY(-180deg); /* assumtion that bacl card is already rotated */
+            &-1 {
+                background-image: linear-gradient(to right bottom,$color-secondary-light, $color-secondary-dark);
+
+            }
+
+            &-2 {
+                background-image: linear-gradient(to right bottom,$color-primary-light, $color-primary-dark);
+
+            }
+
+            &-3 {
+                background-image: linear-gradient(to right bottom,$color-tertiary-light, $color-tertiary-dark);
+
+            }
+        }
+
+
+    }
+
+    /* below code explain when we hover the card then we want card side to transform */
+    &:hover &__side--front {
+        transform: rotateY(180deg); 
+        /* only the front will rotate at the beginning */
+        /* still need to figure out why y axis but for the future reference it is why axis for this kinda movement */
+    }
+
+    &:hover &__side--back {
+        transform: rotateY(0); 
+        /* so the back one will go back to normal meaning to the front */
+    }
+
+
+
+    // FRONT SIZE STYLING
+    &__picture {
+        background-size: cover; /* it is outisde cos we want it for all other images for the cards */
+        height: 23rem;
+        background-blend-mode: screen;
+        -webkit-clip-path: polygon(0 0,100% 0, 100% 85%, 0 100%);
+
+        clip-path: polygon(0 0,100% 0, 100% 85%, 0 100%);
+
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+
+        &--1 {
+            background-image: linear-gradient(to right bottom,$color-secondary-light, $color-secondary-dark), url(../img/nat-5.jpg);
+        }
+
+        &--2 {
+            background-image: linear-gradient(to right bottom,$color-primary-light, $color-primary-dark),url(../img/nat-6.jpg);
+        }
+        &--3 {
+            background-image: linear-gradient(to right bottom,$color-tertiary-light, $color-tertiary-dark), url(../img/nat-7.jpg);
+        }
+    }
+
+    &__heading {
+        font-size: 2.8rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        text-align: right;
+        color: $color-white;
+        position: absolute; /* cos we want it on the top of the image */
+        top: 12rem;
+        right: 2rem;
+        width: 75%;
+
+    }
+    /* no nesting cos it is a separate element in bem methology*/
+    &__heading-span {
+
+        padding: 1rem 1.5rem;
+        -webkit-box-decoration-break: clone;
+        box-decoration-break: clone;
+
+        &--1{
+            background-image: linear-gradient(to right bottom, $color-secondary-light, $color-secondary-dark);
+        }
+        &--2 {
+            background-image: linear-gradient(to right bottom,$color-primary-light, $color-primary-dark);
+        }
+
+        &--3 {
+            background-image: linear-gradient(to right bottom,$color-tertiary-light, $color-tertiary-dark),
+        }
+    }
+    &__details {
+
+        padding: 3rem; /* space bettwen pic and list just a little space */
+
+        ul{
+            list-style: none;
+            width: 80%;
+            margin: 0 auto; /* centering block element inside another block element */
+
+
+
+            li{
+                text-align: center;
+                font-size: 1.5rem;
+                padding: 1rem;
+
+                &:not(:last-child) {
+                    border-bottom: 1px solid $color-grey-light-2;
+                }
+
+            }
+        }
+
+    }
+
+    // Back SIZE STYLING
+
+    &__cta {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        width: 90%; /* it was braking a text cos it miminking the width and text was breakeing hence this width and text aling center*/
+        text-align: center;
+
+    }
+
+    &__price-box{
+        text-align: center;
+        color: $color-white; /* it will be inherited */
+        margin-bottom: 8rem; /* gap between button and price shit*/
+
+    }
+
+    &__price-only{
+        font-size: 1.4rem;
+        text-transform: uppercase;
+
+    }
+
+    &__price-value{
+        font-size: 6rem;
+        font-weight: 100;
+    }
+
+
+    //@include respond(tab-port) 
+    // hover none for ipad and shit like when device uses touch as a primary input 
+    @media only screen and (max-width: 56.25em),
+    only screen and (hover:none) {
+
+        height: auto;
+        border-radius: 3px;
+        background-color: $color-white;
+        box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
+        
+        &__side {
+            height: auto;
+            position: relative; /* changig positioning cos we dont need that  originally it was both side being on top of each other */
+            box-shadow: none;
+
+            &--back {
+                transform: rotateY(0); /* originally rotate 180 no we dont need on this media query */
+                clip-path: polygon(0 15%, 100% 0, 100% 100%, 0% 100%);
+            }
+        }
+    
+        &:hover &__side--front {
+            transform: rotateY(0);
+        }
+
+    
+        &__details {
+            padding: 1rem 3rem;
+        }
+
+        // Back SIDE STYLING
+        &__cta {
+            position: relative;
+            top: 0%;
+            left: 0;
+            transform: translate(0);
+            width: 100%;
+            padding: 7rem 4rem 4rem 4rem;
+        }
+
+        &__price-box {
+            margin-bottom: 3rem;
+        }
+
+        &__price-value {
+            font-size: 4rem;
+        }
+    }
+}
